@@ -15,6 +15,7 @@ import calendar
 
 import dateutil.rrule
 from dateutil import tz
+import pytz
 
 from django.utils import dateformat
 from django.utils.timezone import get_current_timezone, is_aware, is_naive, make_aware
@@ -22,6 +23,7 @@ from django.utils.translation import gettext as _, pgettext as _p
 
 from recurrence import exceptions
 from recurrence import settings
+
 
 YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
 
@@ -972,7 +974,7 @@ def deserialize(text, include_dtstart=True):
             hour, minute, second = (0, 0, 0)
         if u'Z' in text:
             # time is in utc
-            tzinfo = tz.UTC
+            tzinfo = pytz.utc
         else:
             # right now there is no support for VTIMEZONE/TZID since
             # this is a partial implementation of rfc2445 so we'll
